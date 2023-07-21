@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flask Table Example</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 50%;
+            margin: 20px auto;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sample Data Table</h1>
+    <table id="data-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Occupation</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+
+        {% for data in sample_data %}
+        <p>
+            {{data}}
+        </p>
+        {% endfor}
+        <p>
+
+        </p>
+    </table>
+
+    <script>
+    
+        var sampleData = {{ sample_data | tojson }};
+
+        function createTableRows() {
+            var tableBody = document.querySelector("#data-table tbody");
+            tableBody.innerHTML = "";
+
+            sampleData.forEach(function(person) {
+                var row = document.createElement("tr");
+
+                var nameCell = document.createElement("td");
+                nameCell.textContent = person.name;
+                row.appendChild(nameCell);
+
+                var ageCell = document.createElement("td");
+                ageCell.textContent = person.age;
+                row.appendChild(ageCell);
+
+                var occupationCell = document.createElement("td");
+                occupationCell.textContent = person.occupation;
+                row.appendChild(occupationCell);
+
+                tableBody.appendChild(row);
+            });
+        }
+
+       
+        createTableRows();
+    </script>
+</body>
+</html>
